@@ -33,9 +33,9 @@
 <span>def <span class="ident">fix</span></span>(<span>value, default_value)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Force an expected behavior for boolean and empty values, get
+<section class="desc"><p>Force a correct behavior for boolean and other empty values, get
 retrieved value as <code>value</code> and default value as <code>default_value</code>.
-Return default value if value is <code>None</code>, otherwise use default
+Return retrieved value if isnt's <code>None</code>, otherwise use default
 value.</p></section>
 </dd>
 </dl>
@@ -48,18 +48,20 @@ value.</p></section>
 <span>(</span><span>bucket, static_profile='', env_profile='', raise_if_none=None)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Implements the main logic</p>
-<p>Initialize class, receive bucket object as <code>bucket</code> and profile
-in <code>static_profile</code> <strong>or</strong> environment profile as <code>env_profile</code>.
-Receive an exception to be raised in case of None values.</p>
-<p>To use a static profile, set <code>static_profile</code> value with profile
-you want to use or set <code>env_profile</code> to define a environment
-variable containing profile name.</p></section>
+<section class="desc"><p>Implements the main logic of Tomatic library.</p>
+<p>Initialize class receiving bucket object as <code>bucket</code> and profile
+in <code>static_profile</code> <strong>or</strong> as <code>env_profile</code>. Optionaly receive
+an exception to be raised in case of <code>None</code> values.</p></section>
 </dd>
 </dl>
 </section>
 </article>
 <nav id="sidebar">
+<header>
+<a class="homelink" rel="home" title="Tomatic Home" href="/tomatic">
+<img src="tomatic.png" alt="" style="width:50%">
+</a>
+</header>
 <h1>Index</h1>
 <div class="toc">
 <ul></ul>

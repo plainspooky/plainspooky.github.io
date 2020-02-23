@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.7.4" />
 <title>tomatic API documentation</title>
-<meta name="description" content="**Tomatic** is a library that helps to add automatic configuration
-capabilities on **Python** programs without bloating files created
-for store …" />
+<meta name="description" content="**Tomatic** is a library that helps add automatic setup capabilities
+on **Python** programs and avoids that configuration files became
+bloated with …" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -22,12 +22,12 @@ for store …" />
 <h1 class="title">Module <code>tomatic</code></h1>
 </header>
 <section id="section-intro">
-<p><strong>Tomatic</strong> is a library that helps to add automatic configuration
-capabilities on <strong>Python</strong> programs without bloating files created
-for store settings with unnecessary lines of code. It has originally
-designed for use with <a href="https://www.djangoproject.com/">Django</a>
-applications acting in <code>settings.py</code> but could be used with any
-other Python program.</p>
+<p><strong>Tomatic</strong> is a library that helps add automatic setup capabilities
+on <strong>Python</strong> programs and avoids that configuration files became
+bloated with unnecessary lines of code. It has originally designed to
+be used in <a href="https://www.djangoproject.com/">Django</a> projects working
+directly in <code>settings.py</code> but can be used with any other <strong>Python</strong>
+program.</p>
 <p>Buckets are simple interfaces for KEY/VALUE repositories.</p>
 <h2 id="buckets">Buckets</h2>
 <p>Buckets are simple interfaces for KEY/VALUE repositories that only
@@ -43,46 +43,46 @@ make sure that your changes didn't break your code. A <em>dummy</em> bucket
 returns <code>None</code> VALUE for any KEY.</li>
 <li><code>EnvironBucket</code> : It's a bucket that uses operating system
 environment variables to store KEY/VALUE data. Create variables
-using <code>«profile»__«key»=«value</code> syntax and this bucket will find them.</li>
+using <code>«profile»__«key»=«value</code> syntax and this bucket will find them.]</li>
 </ul>
+<hr>
 <h1 id="how-to-use">How to use</h1>
 <h2 id="setup-tomatic">Setup Tomatic</h2>
-<p>Load <strong>Tomatic</strong> module and the bucket class that you going to use in
+<p>Load <strong>Tomatic</strong> module and bucket class that you want to use in
 your code:</p>
 <pre><code class="python">from tomatic import Tomatic
 from tomatic.buckets import EnvironBucket
 </code></pre>
-<p>Create a <strong>Tomatic</strong> instance for your settings:</p>
+<p>Create a <strong>Tomatic</strong> instance with your settings:</p>
 <pre><code class="python">t = Tomatic(EnvironBucket, static_profile=&quot;HOMOLOG&quot;)
 </code></pre>
 <p>A <em>profile</em> is a name that identifies which set of data you going to
-use, it's like a directory on file system.</p>
-<p>You can turn <em>profile</em> selection more dynamic using <code>env_profile</code>
+use, it's like a directory on a file system.</p>
+<p>You can turn <em>profile</em> selection dynamic using <code>env_profile</code>
 instead of
 <code>static_profile</code>.</p>
 <pre><code class="python">t = Tomatic(EnvironBucket, env_profile=&quot;CURRENT_PROFILE&quot;)
 </code></pre>
-<p>And set <em>profile</em> value directly on your operation system:</p>
+<p>In this case <strong>Tomatic</strong> will get profile name direct from a environment variable set in operating system:</p>
 <pre><code class="shell">export CURRENT_PROFILE=&quot;HOMOLOG&quot;
 </code></pre>
-<h2 id="setting-data">Setting data</h2>
-<p>Using <code>EnvironBucket</code> you need to populate environment variables on
-your operating system as well:</p>
+<h2 id="setting-keyvalue-pairs">Setting KEY/VALUE pairs</h2>
+<p>When using<code>EnvironBucket</code> you need to create your KEY/VALUE pairs using the following syntax:</p>
 <pre><code class="shell">export HOMOLOG__API_HOST='127.16.20.13'
 export HOMOLOG__ITEMS_PER_PAGE='50'
 export HOMOLOG__DEBUG='true'
 </code></pre>
 <h2 id="using-data">Using data</h2>
-<p>To set them in your program, use:</p>
+<p>To set KEYS in your program, use:</p>
 <pre><code class="python">API = &quot;http://{host}/api/v1&quot;.format(t.API_HOST or &quot;localhost&quot;)
 </code></pre>
-<p>The <code>or</code> statement use is optional but it works providing default
-values for cases when a KEY isn't set. In this case if
-<code>HOMOLOG__API_HOST</code> there isn't defined, "localhost" is the used.</p>
+<p>The use of <code>or</code> statement is optional but it works providing a default
+value when KEY doesn't have a VALUE. So, if
+<code>HOMOLOG__API_HOST</code> there isn't defined, "localhost" is used.</p>
 <h4 id="forcing-data-types">Forcing data types</h4>
-<p>In Python environment variables are always <em>strings</em>, but you can force
+<p>For <strong>Python</strong>, environment variables are always <em>strings</em>, but you can force
 a specific data type conversion adding "__«type»__" as a suffix. To
-force <code>ITEMS_PER_PAGE</code>to be an integer, use:</p>
+force <code>ITEMS_PER_PAGE</code>to be an integer instead of a string, use:</p>
 <pre><code class="python">ITEMS_PER_PAGE = t.ITEMS_PER_PAGE__int__ or 15
 </code></pre>
 <p>Supported types are:</p>
@@ -93,17 +93,17 @@ force <code>ITEMS_PER_PAGE</code>to be an integer, use:</p>
 <li>JSON (<code>__json__</code>)</li>
 <li>String* (<code>__str__</code>).</li>
 </ul>
-<p>(*) Default type.</p>
+<p>(*) Default data type and can be omited.</p>
 <h4 id="handling-with-empty-values">Handling with empty values</h4>
-<p>In Python a <code>False or True</code> statement results <code>True</code>, and the same
-happens with <code>0 or 1</code>, <code>"" or "name"</code> etc&hellip; So, to avoid this behavior
-use <code>fix(tomatic value», «default_value»)</code> function&hellip;</p>
+<p>In <strong>Python</strong> a <code>False or True</code> comparison results <code>True</code>, and the same
+will happen with <code>0 or 1</code>, <code>"" or "some name"</code> etc&hellip; To avoid this behavior
+and force use of the first value even empty, use <code>fix(«tomatic value»,«default value»)</code>function&hellip;</p>
 <pre><code class="python">from tomatic import Tomatic, fix
 ...
 DEBUG = fix(t.DEBUG, True)
 </code></pre>
-<p>To force use of value that came from <strong>Tomatic</strong> even when empty and
-to use a default value only if <code>None</code> is returned.</p>
+<p>This forces VALUE that came from <strong>Tomatic</strong> use even when it's empty and
+default value use only when<code>None</code> is returned.</p>
 </section>
 <section>
 <h2 class="section-title" id="header-submodules">Sub-modules</h2>
@@ -130,13 +130,18 @@ to use a default value only if <code>None</code> is returned.</p>
 </section>
 </article>
 <nav id="sidebar">
+<header>
+<a class="homelink" rel="home" title="Tomatic Home" href="/tomatic">
+<img src="tomatic.png" alt="" style="width:50%">
+</a>
+</header>
 <h1>Index</h1>
 <div class="toc">
 <ul>
 <li><a href="#buckets">Buckets</a></li>
 <li><a href="#how-to-use">How to use</a><ul>
 <li><a href="#setup-tomatic">Setup Tomatic</a></li>
-<li><a href="#setting-data">Setting data</a></li>
+<li><a href="#setting-keyvalue-pairs">Setting KEY/VALUE pairs</a></li>
 <li><a href="#using-data">Using data</a><ul>
 <li><a href="#forcing-data-types">Forcing data types</a></li>
 <li><a href="#handling-with-empty-values">Handling with empty values</a></li>

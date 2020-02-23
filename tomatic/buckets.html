@@ -35,15 +35,8 @@
 <dd>
 <section class="desc"><p>Convert a given <em>string</em> to a specific data type, receive type to
 use as <code>datatype</code> and value to convert as <code>value_raw</code>. Supported
-data types are hardcoded here and by <code>TYPES</code> constant and they
-are:</p>
-<ul>
-<li>Boolean;</li>
-<li>Floating Point;</li>
-<li>Intege;</li>
-<li>JSON and</li>
-<li>String (default).</li>
-</ul></section>
+data types are hardcoded here but there are on <code>TYPES</code> constant
+as well.</p></section>
 </dd>
 </dl>
 </section>
@@ -90,9 +83,9 @@ not used).</p></section>
 <span>(</span><span>profile)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Uses Operating System environment variables to store application
-configuration data. To set a KEY create an environment variable
-using the following syntax:</p>
+<section class="desc"><p>Uses Operating System environment variables to store KEY/VALUE
+pairs. To set a KEY create an environment variable using the
+following syntax:</p>
 <pre><code>«PROFILE»&gt;__«KEY»=«VALUE»
 </code></pre>
 <p>Where:</p>
@@ -100,13 +93,13 @@ using the following syntax:</p>
 <li><code>PROFILE</code> is a name that groups KEYS;</li>
 <li><code>KEY</code> is a name to identify a specific VALUE and</li>
 <li><code>VALUE</code> is a value itself (dont't care about data types here,
-just use <em>strings</em>).</li>
+for <strong>Python</strong> it's a <em>string</em>).</li>
 </ul>
 <p>Don't forget that a combinatiom of <code>profile</code> and <code>key</code> must be
 unique!</p>
 <h2 id="example">Example</h2>
-<p>A set of variables, just like is used by
-<a href="https://docs.docker.com/compose/">Docker Compose</a>:</p>
+<p>A set of variables, just like on
+<a href="https://docs.docker.com/compose/">Docker Compose</a> <code>.env</code> file:</p>
 <pre><code class="shell">TEST__HOSTNAME=127.0.0.1
 HOMOLOG__HOSTNAME=172.16.20.123
 PRODUCTION__HOSTNAME=app.myapplication.com
@@ -114,7 +107,7 @@ PRODUCTION__HOSTNAME=app.myapplication.com
 <p>Here <code>HOSTNAME</code> content is <strong>127.0.0.1</strong> for <code>TEST</code> profile,
 <strong>172.16.20.123</strong> for<code>HOMOLOG</code> and <strong>app.myapplication.com</strong> for
 <code>PRODUCTION</code>.</p>
-<p>Initialize class, receive profile name as <code>profile</code></p></section>
+<p>Initialize class uising profile name as <code>profile</code>.</p></section>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="tomatic.buckets.BaseBucket" href="#tomatic.buckets.BaseBucket">BaseBucket</a></li>
@@ -131,9 +124,9 @@ PRODUCTION__HOSTNAME=app.myapplication.com
 <span>def <span class="ident">get_type</span></span>(<span>self, key_raw)</span>
 </code></dt>
 <dd>
-<section class="desc"><p>Check if there is data type enconded on KEY as <code>key_raw</code>,
-extract data type if exist and parse. Return KEY without data
-type encoded data type decoded (if exists) in a <em>tuple</em>.</p>
+<section class="desc"><p>Check if there is a data type enconded on KEY as <code>key_raw</code>,
+extract data type if exist and check. Return KEY without data
+type encoded and type decoded (if exists) in a <em>tuple</em>.</p>
 <p>To force type cast for a giver KEY use:</p>
 <pre><code class="shell">«PROFILE»&gt;__«KEY»__«type»__
 </code></pre>
@@ -145,7 +138,7 @@ type encoded data type decoded (if exists) in a <em>tuple</em>.</p>
 <li><code>__json__</code> to convert VALUE to dictionaries or lists and</li>
 <li><code>__str__</code> to convert VALUE to a string (default bahavior).</li>
 </ul>
-<p>Don't forget to keep "type" in lower case and not recognized
+<p>Don't forget to keep "type" in lower case. All unrecognized
 data types are treated as <em>string</em>.</p>
 <h2 id="example">Example</h2>
 <p>KEYS as set on operating system:</p>
@@ -154,7 +147,7 @@ HOMOLOG__MAX_RESULTS=200
 HOMOLOG__DEBUG=false
 HOMOLOG__HEALTH_CHECK='{&quot;DISK_USAGE_MAX&quot;:80,&quot;MEMORY_MIN&quot;:200}'
 </code></pre>
-<p>Python code configured to properly handle with these KEYS:</p>
+<p><strong>Python</strong> code configured to properly handle with these KEYS:</p>
 <pre><code class="python">from tomatic import Tomaic, fix
 from tomatic.buckets import EnvironBucket
 
@@ -170,7 +163,7 @@ HEALTH_CHECK = t.HEALTH_CHECK__json__ or {
 }
 </code></pre>
 <p>To avoid mistakes handling with boolean or even empty values,
-use <code>fix()</code> function.</p></section>
+use <code>Tomatic.fix()</code> function.</p></section>
 </dd>
 </dl>
 </dd>
@@ -178,6 +171,11 @@ use <code>fix()</code> function.</p></section>
 </section>
 </article>
 <nav id="sidebar">
+<header>
+<a class="homelink" rel="home" title="Tomatic Home" href="/tomatic">
+<img src="tomatic.png" alt="" style="width:50%">
+</a>
+</header>
 <h1>Index</h1>
 <div class="toc">
 <ul></ul>
