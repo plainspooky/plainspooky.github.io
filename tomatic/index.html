@@ -47,7 +47,7 @@ using <code>«profile»__«key»=«value</code> syntax and this bucket will find
 </ul>
 <hr>
 <h1 id="how-to-use">How to use</h1>
-<h2 id="setup-tomatic">Setup Tomatic</h2>
+<h2 id="tomatic-setup">Tomatic setup</h2>
 <p>Load <strong>Tomatic</strong> module and bucket class that you want to use in
 your code:</p>
 <pre><code class="python">from tomatic import Tomatic
@@ -66,7 +66,7 @@ instead of
 <p>In this case <strong>Tomatic</strong> will get profile name direct from a environment variable set in operating system:</p>
 <pre><code class="shell">export CURRENT_PROFILE=&quot;HOMOLOG&quot;
 </code></pre>
-<h2 id="setting-keyvalue-pairs">Setting KEY/VALUE pairs</h2>
+<h2 id="setting-up-keyvalue-pairs">Setting up KEY/VALUE pairs</h2>
 <p>When using<code>EnvironBucket</code> you need to create your KEY/VALUE pairs using the following syntax:</p>
 <pre><code class="shell">export HOMOLOG__API_HOST='127.16.20.13'
 export HOMOLOG__ITEMS_PER_PAGE='50'
@@ -79,13 +79,13 @@ export HOMOLOG__DEBUG='true'
 <p>The use of <code>or</code> statement is optional but it works providing a default
 value when KEY doesn't have a VALUE. So, if
 <code>HOMOLOG__API_HOST</code> there isn't defined, "localhost" is used.</p>
-<h4 id="forcing-data-types">Forcing data types</h4>
+<h3 id="forcing-data-types">Forcing data types</h3>
 <p>For <strong>Python</strong>, environment variables are always <em>strings</em>, but you can force
-a specific data type conversion adding "__«type»__" as a suffix. To
-force <code>ITEMS_PER_PAGE</code>to be an integer instead of a string, use:</p>
+a specific data type conversion adding <code>__«type»__</code> as a suffix.</p>
+<p>To force <code>ITEMS_PER_PAGE</code>to be an integer instead of a string, use:</p>
 <pre><code class="python">ITEMS_PER_PAGE = t.ITEMS_PER_PAGE__int__ or 15
 </code></pre>
-<p>Supported types are:</p>
+<p>There are currently supported types:</p>
 <ul>
 <li>Boolean (<code>__bool__</code>)</li>
 <li>Floating Point (<code>__float__</code>)</li>
@@ -94,7 +94,29 @@ force <code>ITEMS_PER_PAGE</code>to be an integer instead of a string, use:</p>
 <li>String* (<code>__str__</code>).</li>
 </ul>
 <p>(*) Default data type and can be omited.</p>
-<h4 id="handling-with-empty-values">Handling with empty values</h4>
+<p><strong>Code example:</strong></p>
+<p>KEYS set as in operating system for <code>EnvironBucket</code> use:</p>
+<pre><code class="shell">HOMOLOG__HOSTNAME=&quot;192.168.0.200&quot;
+HOMOLOG__MAX_RESULTS=200
+HOMOLOG__DEBUG=false
+HOMOLOG__HEALTH_CHECK='{&quot;DISK_USAGE_MAX&quot;:80,&quot;MEMORY_MIN&quot;:200}'
+</code></pre>
+<p><strong>Python</strong> code configured to properly handle with these KEYS:</p>
+<pre><code class="python">from tomatic import Tomaic, fix
+from tomatic.buckets import EnvironBucket
+
+t = Tomatic(EnvironBucket, static_profile=&quot;HOMOLOG&quot;)
+...
+HOSTNAME = t.HOSTNAME__str__ or &quot;localhost&quot;
+MAX_RESULTS = t.MAX_RESULTS__int__ or 10
+DEBUG = t.fix(l.DEBUG__bool__, False)
+
+HEALTH_CHECK = t.HEALTH_CHECK__json__ or {
+    &quot;DISK_USAGE_MAX&quot;: 90,
+    &quot;MEMORY_MIN&quot;: 100,
+}
+</code></pre>
+<h3 id="handling-with-empty-values">Handling with empty values</h3>
 <p>In <strong>Python</strong> a <code>False or True</code> comparison results <code>True</code>, and the same
 will happen with <code>0 or 1</code>, <code>"" or "some name"</code> etc&hellip; To avoid this behavior
 and force use of the first value even empty, use <code>fix(«tomatic value»,«default value»)</code>function&hellip;</p>
@@ -116,9 +138,17 @@ default value use only when<code>None</code> is returned.</p>
 <dd>
 <section class="desc"><p>Core class and functions.</p></section>
 </dd>
+<dt><code class="name"><a title="tomatic.datatypes" href="datatypes.html">tomatic.datatypes</a></code></dt>
+<dd>
+<section class="desc"><p>Custom datatypes.</p></section>
+</dd>
 <dt><code class="name"><a title="tomatic.tests" href="tests.html">tomatic.tests</a></code></dt>
 <dd>
 <section class="desc"><p>Test routines for Tomatic.</p></section>
+</dd>
+<dt><code class="name"><a title="tomatic.tools" href="tools.html">tomatic.tools</a></code></dt>
+<dd>
+<section class="desc"><p>Tools classes and routines.</p></section>
 </dd>
 </dl>
 </section>
@@ -140,8 +170,8 @@ default value use only when<code>None</code> is returned.</p>
 <ul>
 <li><a href="#buckets">Buckets</a></li>
 <li><a href="#how-to-use">How to use</a><ul>
-<li><a href="#setup-tomatic">Setup Tomatic</a></li>
-<li><a href="#setting-keyvalue-pairs">Setting KEY/VALUE pairs</a></li>
+<li><a href="#tomatic-setup">Tomatic setup</a></li>
+<li><a href="#setting-up-keyvalue-pairs">Setting up KEY/VALUE pairs</a></li>
 <li><a href="#using-data">Using data</a><ul>
 <li><a href="#forcing-data-types">Forcing data types</a></li>
 <li><a href="#handling-with-empty-values">Handling with empty values</a></li>
@@ -156,7 +186,9 @@ default value use only when<code>None</code> is returned.</p>
 <ul>
 <li><code><a title="tomatic.buckets" href="buckets.html">tomatic.buckets</a></code></li>
 <li><code><a title="tomatic.core" href="core.html">tomatic.core</a></code></li>
+<li><code><a title="tomatic.datatypes" href="datatypes.html">tomatic.datatypes</a></code></li>
 <li><code><a title="tomatic.tests" href="tests.html">tomatic.tests</a></code></li>
+<li><code><a title="tomatic.tools" href="tools.html">tomatic.tools</a></code></li>
 </ul>
 </li>
 </ul>

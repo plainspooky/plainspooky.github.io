@@ -27,25 +27,13 @@
 <section>
 </section>
 <section>
-<h2 class="section-title" id="header-functions">Functions</h2>
-<dl>
-<dt id="tomatic.core.fix"><code class="name flex">
-<span>def <span class="ident">fix</span></span>(<span>value, default_value)</span>
-</code></dt>
-<dd>
-<section class="desc"><p>Force a correct behavior for boolean and other empty values, get
-retrieved value as <code>value</code> and default value as <code>default_value</code>.
-Return retrieved value if isnt's <code>None</code>, otherwise use default
-value.</p></section>
-</dd>
-</dl>
 </section>
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
 <dt id="tomatic.core.Tomatic"><code class="flex name class">
 <span>class <span class="ident">Tomatic</span></span>
-<span>(</span><span>bucket, static_profile='', env_profile='', raise_if_none=None)</span>
+<span>(</span><span>bucket, static_profile='', env_profile='', raise_if_none=None, bucket_args={})</span>
 </code></dt>
 <dd>
 <section class="desc"><p>Implements the main logic of Tomatic library.</p>
@@ -70,11 +58,6 @@ an exception to be raised in case of <code>None</code> values.</p></section>
 <li><h3>Super-module</h3>
 <ul>
 <li><code><a title="tomatic" href="index.html">tomatic</a></code></li>
-</ul>
-</li>
-<li><h3><a href="#header-functions">Functions</a></h3>
-<ul class="">
-<li><code><a title="tomatic.core.fix" href="#tomatic.core.fix">fix</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>

@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.7.4" />
-<title>tomatic.buckets API documentation</title>
-<meta name="description" content="Bucket classes and routines." />
+<title>tomatic.datatypes API documentation</title>
+<meta name="description" content="Custom datatypes." />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -17,10 +17,10 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>tomatic.buckets</code></h1>
+<h1 class="title">Module <code>tomatic.datatypes</code></h1>
 </header>
 <section id="section-intro">
-<p>Bucket classes and routines.</p>
+<p>Custom datatypes.</p>
 </section>
 <section>
 </section>
@@ -29,96 +29,6 @@
 <section>
 </section>
 <section>
-<h2 class="section-title" id="header-classes">Classes</h2>
-<dl>
-<dt id="tomatic.buckets.BaseBucket"><code class="flex name class">
-<span>class <span class="ident">BaseBucket</span></span>
-</code></dt>
-<dd>
-<section class="desc"><p>This class implements basic attributes and methods for Buckets.</p></section>
-<h3>Subclasses</h3>
-<ul class="hlist">
-<li><a title="tomatic.buckets.DummyBucket" href="#tomatic.buckets.DummyBucket">DummyBucket</a></li>
-<li><a title="tomatic.buckets.EnvironBucket" href="#tomatic.buckets.EnvironBucket">EnvironBucket</a></li>
-</ul>
-<h3>Methods</h3>
-<dl>
-<dt id="tomatic.buckets.BaseBucket.get"><code class="name flex">
-<span>def <span class="ident">get</span></span>(<span>self, key)</span>
-</code></dt>
-<dd>
-<section class="desc"><p>Receive KEY as <code>key</code> and return <code>None</code>.</p></section>
-</dd>
-</dl>
-</dd>
-<dt id="tomatic.buckets.DummyBucket"><code class="flex name class">
-<span>class <span class="ident">DummyBucket</span></span>
-<span>(</span><span>profile, args={})</span>
-</code></dt>
-<dd>
-<section class="desc"><p>It's a bucket for test purpose use only, use it to make sure that
-changes didn't break your code. It always returns <code>None</code> for all
-KEY you try to get a VALUE.</p>
-<p>Initialize class using profile name as <code>profile</code> (but it's
-not used).</p></section>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li><a title="tomatic.buckets.BaseBucket" href="#tomatic.buckets.BaseBucket">BaseBucket</a></li>
-</ul>
-<h3>Inherited members</h3>
-<ul class="hlist">
-<li><code><b><a title="tomatic.buckets.BaseBucket" href="#tomatic.buckets.BaseBucket">BaseBucket</a></b></code>:
-<ul class="hlist">
-<li><code><a title="tomatic.buckets.BaseBucket.get" href="#tomatic.buckets.BaseBucket.get">get</a></code></li>
-</ul>
-</li>
-</ul>
-</dd>
-<dt id="tomatic.buckets.EnvironBucket"><code class="flex name class">
-<span>class <span class="ident">EnvironBucket</span></span>
-<span>(</span><span>profile, args={})</span>
-</code></dt>
-<dd>
-<section class="desc"><p>Uses Operating System environment variables to store KEY/VALUE
-pairs. To set a KEY create an environment variable using the
-following syntax:</p>
-<pre><code>«PROFILE»&gt;__«KEY»=«VALUE»
-</code></pre>
-<p>Where:</p>
-<ul>
-<li><code>PROFILE</code> is a name that groups KEYS;</li>
-<li><code>KEY</code> is a name to identify a specific VALUE and</li>
-<li><code>VALUE</code> is a value itself (dont't care about data types here,
-for <strong>Python</strong> it's always a string).</li>
-</ul>
-<p>Don't forget that a combinatiom of <code>profile</code> and <code>key</code> must be
-unique!</p>
-<h2 id="example">Example</h2>
-<p>A set of variables, just like on
-<a href="https://docs.docker.com/compose/">Docker Compose</a> <code>.env</code> file:</p>
-<pre><code class="shell">TEST__HOSTNAME=127.0.0.1
-HOMOLOG__HOSTNAME=172.16.20.123
-PRODUCTION__HOSTNAME=app.myapplication.com
-</code></pre>
-<p>Here <code>HOSTNAME</code> content is <strong>127.0.0.1</strong> for <code>TEST</code> profile,
-<strong>172.16.20.123</strong> for<code>HOMOLOG</code> and <strong>app.myapplication.com</strong> for
-<code>PRODUCTION</code>.</p>
-<p>Initialize class uising profile name as <code>profile</code>.</p></section>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li><a title="tomatic.buckets.BaseBucket" href="#tomatic.buckets.BaseBucket">BaseBucket</a></li>
-</ul>
-<h3>Methods</h3>
-<dl>
-<dt id="tomatic.buckets.EnvironBucket.get"><code class="name flex">
-<span>def <span class="ident">get</span></span>(<span>self, key_raw)</span>
-</code></dt>
-<dd>
-<section class="desc"><p>Retrieve VALUE from a given KEY as <code>key_raw</code> and return it.</p></section>
-</dd>
-</dl>
-</dd>
-</dl>
 </section>
 </article>
 <nav id="sidebar">
@@ -135,25 +45,6 @@ PRODUCTION__HOSTNAME=app.myapplication.com
 <li><h3>Super-module</h3>
 <ul>
 <li><code><a title="tomatic" href="index.html">tomatic</a></code></li>
-</ul>
-</li>
-<li><h3><a href="#header-classes">Classes</a></h3>
-<ul>
-<li>
-<h4><code><a title="tomatic.buckets.BaseBucket" href="#tomatic.buckets.BaseBucket">BaseBucket</a></code></h4>
-<ul class="">
-<li><code><a title="tomatic.buckets.BaseBucket.get" href="#tomatic.buckets.BaseBucket.get">get</a></code></li>
-</ul>
-</li>
-<li>
-<h4><code><a title="tomatic.buckets.DummyBucket" href="#tomatic.buckets.DummyBucket">DummyBucket</a></code></h4>
-</li>
-<li>
-<h4><code><a title="tomatic.buckets.EnvironBucket" href="#tomatic.buckets.EnvironBucket">EnvironBucket</a></code></h4>
-<ul class="">
-<li><code><a title="tomatic.buckets.EnvironBucket.get" href="#tomatic.buckets.EnvironBucket.get">get</a></code></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
