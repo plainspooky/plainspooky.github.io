@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Giovanni Nunes">
+    <meta name="generator" content="Atom 1.6.31">
+    <title>Medidor de irritação do xóvem com textão</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  </head>
+  <body class="d-flex flex-column h-100">
+    <main class="flex-shrink-0">
+      <div class="container">
+        <h1 class="mt-5">Medidor de irritação do <em>xóvem</em> com textão</h1>
+        <p class="lead">Digite abaixo seu textão como se não houvesse amanhã.</p>
+        <div class="form-floating">
+          <textarea id="bigTextArea" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+          <label for="floatingTextarea2">Coloque seu textão aqui!</label>
+        </div>
+        <p class="lead pt-3">E verifique a irritação do <em>xóvem</em> em tempo real!</p>
+        <div class="progress">
+          <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated bg-dark" role="progressbar" aria-label="Irritação do Xovem" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+        </div>
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script>
+const ANNOY_YOUNGERS_STEP = 2;
+
+const textArea = document.getElementById('bigTextArea');
+const progressBar = document.getElementById('progressBar');
+
+let oldSize = 0;
+textArea.oninput = () => {
+  const actualSize = textArea.value.length || 0;
+  if (actualSize !== oldSize){
+    const annoy = Math.round(actualSize / ANNOY_YOUNGERS_STEP)
+    if (annoy > 100) annoy = 100;
+    progressBar.style.width = `${annoy}%`;
+    oldSize = +actualSize;
+  }
+}
+    </script>
+  </body>
+</html>
